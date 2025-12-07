@@ -1,0 +1,119 @@
+This document contains the essential Git commands and workflows used during development.
+
+1. ______________INITIALIZE A GIT REPOSITORY______________
+If your project is not already a Git repository:
+bash
+git init
+
+Check the status:
+git status
+
+2. ______________ADD FILES TO STAGING______________
+Add all new/modified files:
+git add .
+
+Add a specific file:
+git add path/to/file
+
+3. ______________COMMIT CHANGES______________
+Commit staged changes with a message:
+git commit -m "Describe what you changed"
+
+View your last few commits:
+git log --oneline
+
+4. ______________CONNECT TO A REMOTE GITHUB REPOSITORY______________
+Add the remote URL (SSH recommended):
+git remote add origin git@github.com:<username>/<repo>.git
+
+If the remote already exists and needs updating:
+git remote set-url origin git@github.com:<username>/<repo>.git
+
+Check remotes:
+git remote -v
+
+5. ______________PUSH LOCAL BRANCH TO GITHUB______________
+If your branch is master:
+git push -u origin master
+
+If your branch is main:
+git push -u origin main
+
+Future pushes after the first push is done:
+git push
+
+6. ______________PULL CHANGES FROM GITHUB______________
+Simple pull:
+git pull
+
+Pull from a specific branch:
+git pull origin master
+
+Pull with rebase (cleaner history):
+git pull --rebase origin master
+
+7. ______________COMMON "FIRST PULL" ISSUES______________
+If GitHub repo already has commits (e.g., README) and you get:
+Updates were rejected because the remote contains work you do not have locally.
+
+Use:
+git pull origin master --allow-unrelated-histories
+
+Resolve conflicts if any, then:
+git push
+
+8. ______________SSH SETUP______________
+Generate SSH key:
+ssh-keygen -t ed25519 -C "your_email@example.com"
+
+Start SSH agent:
+ssh-add ~/.ssh/id_ed25519
+
+Copy key:
+cat ~/.ssh/id_ed25519.pub
+
+Add the copied key to GitHub → Settings →
+Best practice is to give laptop/device name to the key
+
+Test SSH:
+ssh -T git@github.com
+
+9. ______________BRANCH BASICS______________
+Create a new branch:
+git checkout -b feature/new-feature
+
+Switch branches:
+git checkout master
+
+List branches:
+git branch
+
+Push a new branch:
+git push -u origin feature/new-feature
+
+10. ______________VIEWING DIFFERENCES______________
+See what changed:
+git diff
+
+See staged changes:
+git diff --staged
+
+11. ______________UNDOING MISTAKES______________
+Unstage files:
+git reset HEAD <file>
+
+Undo local modifications (dangerous — use carefully):
+git restore <file>
+
+Undo last commit but keep changes staged:
+git reset --soft HEAD~1
+
+12. ______________USEFUL TIPS______________
+Check which branch you're on:
+git branch --show-current
+
+View local + remote branches:
+git branch -vv
+
+See remote branches:
+git ls-remote --heads origin
