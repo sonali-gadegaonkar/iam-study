@@ -33,6 +33,7 @@ Check remotes:
 git remote -v
 
 5. ______________PUSH LOCAL BRANCH TO GITHUB______________
+!You never commit after push, instead you always commit before push. Commit saves your changes locally whereas push uploads it to GitHub
 If your branch is master:
 git push -u origin master
 
