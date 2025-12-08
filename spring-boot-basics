@@ -1,0 +1,50 @@
+Spring Boot runs on default port 8080 (same as keycloak, hence we will need to change one of them in the future)
+Port can be changed in the application.properties file (server.port = 8081)
+
+IamStudyApplication.java
+- @SpringBootApplication
+    - Scans the projects, starts the server (port 8080 by default)
+    - Loads all controllers (HelloController in my case)
+    - Connects to PostgreSQL
+- main - launches Sprint Boot's the built-in server aka Tomcat
+
+HelloController.java
+- Loads endpoints
+- @RestController
+    - Exposes HTTP endpoints
+- @GetMapping("/hello")
+    - Provides the stuff to do when someone runs the endpoint "/hello" (In our case, it will show a string saying "Hello IAM!")
+- This whole code basically makes sure that our backend responds to http://localhost:8080/hello
+
+application.properties
+- First 3 lines with env variables to help Spring Boot connect to our database
+- spring.jpa.hibernate.ddl-auto=update
+    - Will automatically create/update tables
+- spring.jpa.show-sql=true
+    - Helps you know which SQLs Spring Boot has executed
+    - This is NOT a recommended practice for production due to security concerns + too much logging
+    - Only use in DEV and for debugging incase an SQL fails or a table is missing, etc...
+
+Entity Basics
+-   @Entity
+    public class UserEntity {
+        @Id @GeneratedValue
+        private Long id;
+        private String name;
+    }
+Meaning:
+    - @Entity = becomes a database table
+    - Fields = table columns
+    - @Id = primary key
+Entities basics required later for roles, permissions, and audit data, as they come from DB.
+
+__________________________________________________________________________________________________________
+_________________________________________ MISTAKES AND LEARNINGS _________________________________________
+__________________________________________________________________________________________________________
+1. Spring Boot by default starts at http protocol and NOT https
+2. Using https will throw an error "Invalid character found in method name" as it was expecting http
+3. Steps to start the application:
+    (i). Run your Spring Boot application first and check for the below lines to make sure it started correctly:
+        a. Tomcat started on port(s): 8080
+        b. Started IamStudyApplication
+    (ii). Then open the url
